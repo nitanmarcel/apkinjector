@@ -1,0 +1,9 @@
+[
+    {
+        "name": "hello-world",
+        "author": "apkinjector",
+        "description": "Example plugin. Adds 2 example commands: hello-world, and uname.",
+        "url": "https://raw.githubusercontent.com/nitanmarcel/apkinjector/main/plugins/plugin_example.py",
+        "version": "1.0.0"
+    }
+]
