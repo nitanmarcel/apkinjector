@@ -1,0 +1,233 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Apktool &#8212; apkinjector 2023 documentation</title>
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="UberApkSigner" href="uber_apk_signer.html" />
+    <link rel="prev" title="Java" href="java.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="uber_apk_signer.html" title="UberApkSigner"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="java.html" title="Java"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">apkinjector 2023 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../api.html" accesskey="U">API Reference</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-apkinjector.apktool">
+<span id="apktool"></span><h1>Apktool<a class="headerlink" href="#module-apkinjector.apktool" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="apkinjector.apktool.Apktool">
+<em class="property">class </em><code class="sig-prename descclassname">apkinjector.apktool.</code><code class="sig-name descname">Apktool</code><a class="headerlink" href="#apkinjector.apktool.Apktool" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper class for the different Apktool commands.</p>
+<dl class="method">
+<dt id="apkinjector.apktool.Apktool.advanced">
+<em class="property">static </em><code class="sig-name descname">advanced</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#apkinjector.apktool.Apktool.advanced" title="Permalink to this definition">¶</a></dt>
+<dd><p>Obtain advanced information of the Apktool.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The stdout from the command execution.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="apkinjector.apktool.Apktool.build">
+<em class="property">static </em><code class="sig-name descname">build</code><span class="sig-paren">(</span><em class="sig-param">app_path</em>, <em class="sig-param">force_all=False</em>, <em class="sig-param">output=None</em>, <em class="sig-param">framework_path=None</em>, <em class="sig-param">use_aapt2=False</em><span class="sig-paren">)</span><a class="headerlink" href="#apkinjector.apktool.Apktool.build" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build the unpacked apk from the given path with the provided options.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>app_path</strong> (<em>str</em>) – The path of the app to build.</p></li>
+<li><p><strong>force_all</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to skip changes detection and build all files, defaults to False.</p></li>
+<li><p><strong>output</strong> (<em>str</em><em>, </em><em>optional</em>) – The name of the output APK file, defaults to None.</p></li>
+<li><p><strong>framework_path</strong> (<em>str</em><em>, </em><em>optional</em>) – The directory containing framework files, defaults to None.</p></li>
+<li><p><strong>use_aapt2</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to use aapt 2 or no, defaults to False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The stdout from the command execution.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="apkinjector.apktool.Apktool.decode">
+<em class="property">static </em><code class="sig-name descname">decode</code><span class="sig-paren">(</span><em class="sig-param">file_apk</em>, <em class="sig-param">force=False</em>, <em class="sig-param">output=None</em>, <em class="sig-param">framework_path=None</em>, <em class="sig-param">no_res=False</em>, <em class="sig-param">no_src=False</em>, <em class="sig-param">tag=None</em><span class="sig-paren">)</span><a class="headerlink" href="#apkinjector.apktool.Apktool.decode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decode an APK file with provided options.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file_apk</strong> (<em>str</em>) – The APK file to be decoded.</p></li>
+<li><p><strong>force</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to force delete the destination directory, defaults to False.</p></li>
+<li><p><strong>output</strong> (<em>str</em><em>, </em><em>optional</em>) – The name of the output folder, defaults to None.</p></li>
+<li><p><strong>framework_path</strong> (<em>str</em><em>, </em><em>optional</em>) – The directory containing framework files, defaults to None.</p></li>
+<li><p><strong>no_res</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to not decode resources, defaults to False.</p></li>
+<li><p><strong>no_src</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to not decode sources, defaults to False.</p></li>
+<li><p><strong>tag</strong> (<em>str</em><em>, </em><em>optional</em>) – A tag for the framework file, defaults to None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The stdout from the command execution.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="apkinjector.apktool.Apktool.install">
+<em class="property">static </em><code class="sig-name descname">install</code><span class="sig-paren">(</span><em class="sig-param">path: str = None</em>, <em class="sig-param">progress_callback: Callable = None</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#apkinjector.apktool.Apktool.install" title="Permalink to this definition">¶</a></dt>
+<dd><p>Install apktool.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em><em>, </em><em>optional</em>) – Path to existing apktool.jar. If not found, will use the system installed one or download it. Defaults to None.</p></li>
+<li><p><strong>progress_callback</strong> (<em>callable</em><em>, </em><em>optional</em>) – Callback to be called when install progress changes, defaults to None.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="apkinjector.apktool.Apktool.install_framework">
+<em class="property">static </em><code class="sig-name descname">install_framework</code><span class="sig-paren">(</span><em class="sig-param">framework_apk</em>, <em class="sig-param">framework_path=None</em>, <em class="sig-param">tag=None</em><span class="sig-paren">)</span><a class="headerlink" href="#apkinjector.apktool.Apktool.install_framework" title="Permalink to this definition">¶</a></dt>
+<dd><p>Install framework with provided options.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>framework_apk</strong> (<em>str</em>) – The APK framework file to be installed.</p></li>
+<li><p><strong>framework_path</strong> (<em>str</em><em>, </em><em>optional</em>) – The directory where to store framework files, defaults to None.</p></li>
+<li><p><strong>tag</strong> (<em>str</em><em>, </em><em>optional</em>) – The tag for the framework file, defaults to None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The stdout from the command execution.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="apkinjector.apktool.Apktool.version">
+<em class="property">static </em><code class="sig-name descname">version</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#apkinjector.apktool.Apktool.version" title="Permalink to this definition">¶</a></dt>
+<dd><p>Obtain the version of the Apktool.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The stdout from the command execution.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+</tbody>
+</table>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="java.html"
+                        title="previous chapter">Java</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="uber_apk_signer.html"
+                        title="next chapter">UberApkSigner</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/api/apktool.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="uber_apk_signer.html" title="UberApkSigner"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="java.html" title="Java"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">apkinjector 2023 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../api.html" >API Reference</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2023, Marcel Alexandru Nitan.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.4.
+    </div>
+  </body>
+</html>

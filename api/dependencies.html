@@ -1,0 +1,182 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>DependenciesManager &#8212; apkinjector 2023 documentation</title>
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Adb" href="adb.html" />
+    <link rel="prev" title="ApkInjectorLogger" href="logger.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="adb.html" title="Adb"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="logger.html" title="ApkInjectorLogger"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">apkinjector 2023 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../api.html" accesskey="U">API Reference</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-apkinjector.dependencies">
+<span id="dependenciesmanager"></span><h1>DependenciesManager<a class="headerlink" href="#module-apkinjector.dependencies" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="apkinjector.dependencies.DependenciesManager">
+<em class="property">class </em><code class="sig-prename descclassname">apkinjector.dependencies.</code><code class="sig-name descname">DependenciesManager</code><span class="sig-paren">(</span><em class="sig-param">dependencies_directory: str</em><span class="sig-paren">)</span><a class="headerlink" href="#apkinjector.dependencies.DependenciesManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class manages system-level dependencies by tracking them,
+and their status within a provided directory.</p>
+<dl class="method">
+<dt id="apkinjector.dependencies.DependenciesManager.add_dependency">
+<code class="sig-name descname">add_dependency</code><span class="sig-paren">(</span><em class="sig-param">name: str</em>, <em class="sig-param">path: str = None</em>, <em class="sig-param">required: bool = False</em>, <em class="sig-param">fallback: Optional[Callable] = None</em>, <em class="sig-param">fallback_args: tuple = None</em><span class="sig-paren">)</span> &#x2192; apkinjector.dependencies.Dependency<a class="headerlink" href="#apkinjector.dependencies.DependenciesManager.add_dependency" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a new dependency to the tracked list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – The name of the dependency.</p></li>
+<li><p><strong>path</strong> (<em>str</em><em>, </em><em>optional</em>) – Path to existing dependency. If left None, it will detect the system dependency or call fallback function, defaults to None.</p></li>
+<li><p><strong>required</strong> (<em>bool</em>) – Indicates if the dependency is required, defaults to False.</p></li>
+<li><p><strong>fallback</strong> (<em>Callable</em><em>, </em><em>optional</em>) – The fallback function if the dependency is not found, defaults to None.</p></li>
+<li><p><strong>fallback_args</strong> (<em>tuple</em><em>, </em><em>optional</em>) – Arguments to be passed to the fallback function, defaults to ().</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The newly added dependency.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#apkinjector.dependencies.Dependency" title="apkinjector.dependencies.Dependency">Dependency</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="apkinjector.dependencies.DependenciesManager.get_dependency">
+<code class="sig-name descname">get_dependency</code><span class="sig-paren">(</span><em class="sig-param">name: str</em><span class="sig-paren">)</span> &#x2192; apkinjector.dependencies.Dependency<a class="headerlink" href="#apkinjector.dependencies.DependenciesManager.get_dependency" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves a tracked dependency by name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> (<em>str</em>) – The name of the dependency.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The corresponding Dependency object if it is found, None otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#apkinjector.dependencies.Dependency" title="apkinjector.dependencies.Dependency">Dependency</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="apkinjector.dependencies.DependenciesManager.has_missing_required_dependency">
+<code class="sig-name descname">has_missing_required_dependency</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#apkinjector.dependencies.DependenciesManager.has_missing_required_dependency" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if there is any required dependency missing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True if a required dependency is missing, False otherwise.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="apkinjector.dependencies.Dependency">
+<em class="property">class </em><code class="sig-prename descclassname">apkinjector.dependencies.</code><code class="sig-name descname">Dependency</code><span class="sig-paren">(</span><em class="sig-param">name: str</em>, <em class="sig-param">path: str</em>, <em class="sig-param">required: bool</em><span class="sig-paren">)</span><a class="headerlink" href="#apkinjector.dependencies.Dependency" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+</tbody>
+</table>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="logger.html"
+                        title="previous chapter">ApkInjectorLogger</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="adb.html"
+                        title="next chapter">Adb</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/api/dependencies.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="adb.html" title="Adb"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="logger.html" title="ApkInjectorLogger"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">apkinjector 2023 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../api.html" >API Reference</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2023, Marcel Alexandru Nitan.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.4.
+    </div>
+  </body>
+</html>

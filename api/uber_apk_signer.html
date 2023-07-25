@@ -1,0 +1,164 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>UberApkSigner &#8212; apkinjector 2023 documentation</title>
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Bundle" href="bundle.html" />
+    <link rel="prev" title="Apktool" href="apktool.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="bundle.html" title="Bundle"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="apktool.html" title="Apktool"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">apkinjector 2023 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../api.html" accesskey="U">API Reference</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-apkinjector.uber_apk_signer">
+<span id="uberapksigner"></span><h1>UberApkSigner<a class="headerlink" href="#module-apkinjector.uber_apk_signer" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="apkinjector.uber_apk_signer.UberApkSigner">
+<em class="property">class </em><code class="sig-prename descclassname">apkinjector.uber_apk_signer.</code><code class="sig-name descname">UberApkSigner</code><a class="headerlink" href="#apkinjector.uber_apk_signer.UberApkSigner" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute uber-apk-signer commands</p>
+<dl class="method">
+<dt id="apkinjector.uber_apk_signer.UberApkSigner.install">
+<em class="property">static </em><code class="sig-name descname">install</code><span class="sig-paren">(</span><em class="sig-param">path: str = None</em>, <em class="sig-param">progress_callback: Callable = None</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#apkinjector.uber_apk_signer.UberApkSigner.install" title="Permalink to this definition">¶</a></dt>
+<dd><p>Install uber-apk-signer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em><em>, </em><em>optional</em>) – Path to existing uber-apk-signer.jar. If not found, will use the system installed one or download it. Defaults to None.</p></li>
+<li><p><strong>progress_callback</strong> (<em>callable</em><em>, </em><em>optional</em>) – Callback to be called when install progress changes, defaults to None.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="apkinjector.uber_apk_signer.UberApkSigner.sign">
+<em class="property">static </em><code class="sig-name descname">sign</code><span class="sig-paren">(</span><em class="sig-param">apks: str</em>, <em class="sig-param">allow_resign: Optional[bool] = False</em>, <em class="sig-param">debug: Optional[bool] = False</em>, <em class="sig-param">dry_run: Optional[bool] = False</em>, <em class="sig-param">ks: Optional[str] = None</em>, <em class="sig-param">ks_alias: Optional[str] = None</em>, <em class="sig-param">ks_debug: Optional[str] = None</em>, <em class="sig-param">ks_key_pass: Optional[str] = None</em>, <em class="sig-param">ks_pass: Optional[str] = None</em>, <em class="sig-param">lineage: Optional[str] = None</em>, <em class="sig-param">out: Optional[str] = None</em>, <em class="sig-param">overwrite: Optional[bool] = False</em>, <em class="sig-param">skip_zip_align: Optional[bool] = False</em>, <em class="sig-param">only_verify: Optional[bool] = False</em>, <em class="sig-param">zip_align_path: Optional[str] = None</em>, <em class="sig-param">verify_sha256: Optional[str] = None</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#apkinjector.uber_apk_signer.UberApkSigner.sign" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sign an APK or a set of APKs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The stdout from the command execution.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="apkinjector.uber_apk_signer.UberApkSigner.version">
+<em class="property">static </em><code class="sig-name descname">version</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#apkinjector.uber_apk_signer.UberApkSigner.version" title="Permalink to this definition">¶</a></dt>
+<dd><p>Obtain the version of uber-apk-signer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The stdout from the command execution.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+</tbody>
+</table>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="apktool.html"
+                        title="previous chapter">Apktool</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="bundle.html"
+                        title="next chapter">Bundle</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/api/uber_apk_signer.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="bundle.html" title="Bundle"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="apktool.html" title="Apktool"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">apkinjector 2023 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../api.html" >API Reference</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2023, Marcel Alexandru Nitan.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.4.
+    </div>
+  </body>
+</html>

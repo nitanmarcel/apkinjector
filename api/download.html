@@ -1,0 +1,157 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Download &#8212; apkinjector 2023 documentation</title>
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Plugins" href="plugins.html" />
+    <link rel="prev" title="Gadget" href="gadget.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="plugins.html" title="Plugins"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="gadget.html" title="Gadget"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">apkinjector 2023 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../api.html" accesskey="U">API Reference</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-apkinjector.download">
+<span id="download"></span><h1>Download<a class="headerlink" href="#module-apkinjector.download" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="apkinjector.download.ProgressCompleted">
+<em class="property">class </em><code class="sig-prename descclassname">apkinjector.download.</code><code class="sig-name descname">ProgressCompleted</code><span class="sig-paren">(</span><em class="sig-param">filename: str</em>, <em class="sig-param">path: str</em><span class="sig-paren">)</span><a class="headerlink" href="#apkinjector.download.ProgressCompleted" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="apkinjector.download.ProgressDownloading">
+<em class="property">class </em><code class="sig-prename descclassname">apkinjector.download.</code><code class="sig-name descname">ProgressDownloading</code><span class="sig-paren">(</span><em class="sig-param">filename: str</em>, <em class="sig-param">progress: int</em><span class="sig-paren">)</span><a class="headerlink" href="#apkinjector.download.ProgressDownloading" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="apkinjector.download.ProgressFailed">
+<em class="property">class </em><code class="sig-prename descclassname">apkinjector.download.</code><code class="sig-name descname">ProgressFailed</code><span class="sig-paren">(</span><em class="sig-param">filename: str</em>, <em class="sig-param">status_code: int</em><span class="sig-paren">)</span><a class="headerlink" href="#apkinjector.download.ProgressFailed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="apkinjector.download.ProgressUnknown">
+<em class="property">class </em><code class="sig-prename descclassname">apkinjector.download.</code><code class="sig-name descname">ProgressUnknown</code><span class="sig-paren">(</span><em class="sig-param">filename: str</em>, <em class="sig-param">path: str</em><span class="sig-paren">)</span><a class="headerlink" href="#apkinjector.download.ProgressUnknown" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="apkinjector.download.download_file">
+<code class="sig-prename descclassname">apkinjector.download.</code><code class="sig-name descname">download_file</code><span class="sig-paren">(</span><em class="sig-param">url: str</em>, <em class="sig-param">target_path: str</em>, <em class="sig-param">progress_callback: Optional[Callable] = None</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#apkinjector.download.download_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Download a file from a given URL and save it on the target path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> (<em>str</em>) – The URL from where file needs to be downloaded.</p></li>
+<li><p><strong>target_path</strong> (<em>str</em>) – The path on local system where the downloaded file should be saved.</p></li>
+<li><p><strong>progress_callback</strong> (<em>Optional</em><em>[</em><em>Callable</em><em>]</em>) – Function to call when the progress changes, defaults to None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The target path where the file has been downloaded.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+</tbody>
+</table>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="gadget.html"
+                        title="previous chapter">Gadget</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="plugins.html"
+                        title="next chapter">Plugins</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/api/download.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="plugins.html" title="Plugins"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="gadget.html" title="Gadget"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">apkinjector 2023 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../api.html" >API Reference</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2023, Marcel Alexandru Nitan.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.4.
+    </div>
+  </body>
+</html>
