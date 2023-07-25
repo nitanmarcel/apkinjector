@@ -1,0 +1,9 @@
+[
+    {
+        "name": "hello-world",
+        "author": "apkinjector",
+        "description": "Example plugin",
+        "url": "https://raw.githubusercontent.com/nitanmarcel/apkinjector/main/plugins/hello-world.py",
+        "version": "1.0.0"
+    }
+]
