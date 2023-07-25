@@ -10,7 +10,7 @@ from .utils import arch_to_abi
 
 class Injector:
     @staticmethod
-    def inject_library(source: str, unpack_path: str, smali_path: str = None, extra_files: List[str] = None) ->:
+    def inject_library(source: str, unpack_path: str, smali_path: str = None, extra_files: List[str] = None) -> None:
         """Inject library into unpacked apk
 
         Args:

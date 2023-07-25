@@ -9,7 +9,7 @@ with open('requirements.txt') as f:
 
 setup(
     name='apkinjector',
-    version='1.0.1',
+    version='1.0.2',
     description='Utilities to help injecting libraries and frida in apks.',
     long_description=long_description,
     long_description_content_type='text/markdown',
