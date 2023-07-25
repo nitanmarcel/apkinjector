@@ -4,6 +4,9 @@ from pathlib import Path
 this_directory = Path(__file__).parent
 long_description = (this_directory / "README.md").read_text()
 
+with open('requirements.txt') as f:
+    required = f.read().splitlines()
+
 setup(
     name='apkinjector',
     version='1.0.1',
@@ -21,12 +24,13 @@ setup(
         ]
     },
     install_requires=[
-        'requests',
+        'requests'
         'appdirs',
         'install-jdk',
         'click',
         'pyaxmlparser',
-        'pyelftools'
+        'pyelftools',
+        'colorama'
     ],
     classifiers=[
         'License :: OSI Approved :: GNU General Public License v2 (GPLv2)',

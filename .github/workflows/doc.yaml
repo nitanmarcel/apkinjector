@@ -3,6 +3,7 @@ on:
     push:
         paths:
             - setup.py
+    workflow_dispatch:
 jobs:
     docs:
         runs-on: ubuntu-latest
@@ -11,10 +12,11 @@ jobs:
             - uses: actions/setup-python@v4
               with:
                 python-version: 3.11
-            - run: |
-                sudo apt install make python3-sphinx
-                make
+            - uses: ammaraskar/sphinx-action@master
+              with:
+                build-command: "sphinx-build -b html . _build"
+                docs-folder: "docs/"
             - uses: peaceiris/actions-gh-pages@v3
               with:
                 github_token: ${{ secrets.GITHUB_TOKEN }}
-                publish_dir: ./build/html/
+                publish_dir: docs/_build

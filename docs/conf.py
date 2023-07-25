@@ -6,6 +6,12 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
+import os
+import sys
+
+sys.path.insert(0, os.path.abspath('..'))
+sys.path.insert(0, os.path.abspath('../apkinjector'))
+
 project = 'apkinjector'
 copyright = '2023, Marcel Alexandru Nitan'
 author = 'Marcel Alexandru Nitan'
@@ -31,7 +37,3 @@ exclude_patterns = []
 
 html_theme = 'classic'
 html_static_path = ['_static']
-
-import os
-import sys
-sys.path.insert(0, os.path.abspath('..'))
