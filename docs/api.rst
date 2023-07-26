@@ -12,6 +12,7 @@ API Reference
    api/apktool
    api/uber_apk_signer
    api/bundle
+   api/manifest
    api/frida
    api/gadget
    api/download
