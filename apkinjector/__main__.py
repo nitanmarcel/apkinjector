@@ -8,7 +8,6 @@ import shutil
 import requests
 import tempfile
 from colorama import Fore
-from pyaxmlparser import APK
 
 from . import LOG, USER_DIRECTORIES, __PLUGIN_DATA__
 from .adb import Adb
@@ -23,6 +22,7 @@ from .plugins import _PluginLoader, main
 from .uber_apk_signer import UberApkSigner
 from .bundle import Bundle
 from .download import download_file
+from .manifest import Manifest
 
 def _install_callback(progress):
     if isinstance(progress, ProgressDownloading):
@@ -73,30 +73,30 @@ def _inject(apk, libraries, include, activity, output, override, use_aapt):
             shutil.rmtree(output_bundle)
             bundle_path, target = Bundle.extract(apk, output_bundle)
             LOG.info('Found base apk: {}', target)
-    
-    manifest = APK(target)
-
-    target_activity = None
-
-    if activity:
-        for activities in manifest.get_activities():
-            for i in activities:
-                if activity in i:
-                    target_activity = i
-                    break
-    else:
-        target_activity = manifest.get_main_activity()
-    if not target_activity:
-        LOG.error('{} did not match any activities', activity)
-    
-    LOG.info('Found target activity {}', target_activity)
 
     LOG.info('Extracting {}', target)
 
     Apktool.install(progress_callback=_install_callback)
     LOG.info('Using apktool {}', Apktool.version())
 
-    Apktool.decode(target, force=True, output=workdir, framework_path=f'{workdir}_framework', no_res=True)
+    Apktool.decode(target, force=True, output=workdir, framework_path=f'{workdir}_framework', no_res=True, force_manifest=True)
+
+    manifest_path = os.path.join(workdir, 'AndroidManifest.xml')
+
+    target_activity = None
+
+    if activity:
+        for activities in Manifest.get_activities(manifest_path):
+            for i in activities:
+                if activity in i:
+                    target_activity = i
+                    break
+    else:
+        target_activity = Manifest.get_main_activity(manifest_path)
+    if not target_activity:
+        LOG.error('{} did not match any activities', activity)
+    
+    LOG.info('Found target activity {}', target_activity)
 
     entrypoint = None
     for file in os.listdir(workdir):
@@ -230,18 +230,24 @@ def frida(apk, script, codeshare, arch, adb, activity, output, override, aapt2):
 @click.option('--recievers', is_flag=True, help='Gets all receivers')
 def apk(apk, activities, permissions, libraries, recievers):
     def _parse_apk():
-        manifest = APK(apk)
+        Java.install(progress_callback=_install_callback)
+        Apktool.install(progress_callback=_install_callback)
+
+        decoded_dir = os.path.join(USER_DIRECTORIES.user_cache_dir, 'decoded_tmp')
+
+        Apktool.decode(apk, output=decoded_dir, framework_path=f'{decoded_dir}_framework', no_res=True, no_src=True, force_manifest=True)
+        manifest_path = os.path.join(decoded_dir, 'AndroidManifest.xml')
         if activities:
-            for activity in manifest.get_activities():
+            for activity in Manifest.get_activities(manifest_path):
                 LOG.info(activity)
         if permissions:
-            for permission in manifest.get_permissions():
+            for permission in Manifest.get_permissions(manifest_path):
                 LOG.info(permission)
         if libraries:
-            for library in manifest.get_libraries():
+            for library in Manifest.get_libraries(manifest_path):
                 LOG.info(library)
         if recievers:
-            for reciever in manifest.get_receivers():
+            for reciever in Manifest.get_receivers(manifest_path):
                 LOG.info('{}', reciever)
     if not os.path.isfile(apk):
         LOG.error('{} - not such file.', apk)

@@ -25,7 +25,6 @@ setup(
         'appdirs',
         'install-jdk',
         'click',
-        'pyaxmlparser',
         'pyelftools',
         'colorama'
     ],

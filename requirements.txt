@@ -2,6 +2,6 @@ requests
 appdirs
 install-jdk
 click
-pyaxmlparser
 pyelftools
 colorama
+asn1crypto

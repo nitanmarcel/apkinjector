@@ -63,7 +63,7 @@ class Apktool:
         return Java.run_jar(DEPENDENCIES.apktool, command)
 
     @staticmethod
-    def decode(file_apk, force=False, output=None, framework_path=None, no_res=False, no_src=False, tag=None):
+    def decode(file_apk, force=False, output=None, framework_path=None, no_res=False, no_src=False, tag=None, force_manifest=False):
         """
         Decode an APK file with provided options.
 
@@ -81,6 +81,8 @@ class Apktool:
         :type no_src: bool, optional
         :param tag: A tag for the framework file, defaults to None.
         :type tag: str, optional
+        :param force_manifest: Forces decode of AndroidManifest.xml regardless of decoding of resources parameter.
+        :type force_manifest: str, optional
         :return: The stdout from the command execution.
         :rtype: str
         """
@@ -97,6 +99,8 @@ class Apktool:
             command += ' --no-src'
         if tag:
             command += f' --frame-tag {tag}'
+        if force_manifest:
+            command += f' --force-manifest'
         return Java.run_jar(DEPENDENCIES.apktool, command)
 
     @staticmethod
@@ -113,7 +117,7 @@ class Apktool:
         :param framework_path: The directory containing framework files, defaults to None.
         :type framework_path: str, optional
         :param use_aapt2: Whether to use aapt 2 or no, defaults to False.
-        :type use_aapt2: bool, optional
+        :type use_aapt2: bool, optional.
         :return: The stdout from the command execution.
         :rtype: str
         """
