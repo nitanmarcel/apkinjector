@@ -58,9 +58,10 @@ def _inject(apk, libraries, include, activity, output, override, use_aapt):
     if override:
         output = apk
     else:
+        tmp_output = output
         if os.path.isdir(output):
-            tmp_output = os.path.join(output, f'{apk_name}_patched.{ext}')
-        if os.path.exists(tmp_output):
+            output = os.path.join(output, f'{apk_name}_patched.{ext}')
+        if os.path.exists(output):
             timestamp = str(time.time()).split('.')[0]
             tmp_output = os.path.join(output, f'{apk_name}_patched_{timestamp}.{ext}')
         output = tmp_output
