@@ -75,7 +75,7 @@
 <li><p><strong>force_all</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to skip changes detection and build all files, defaults to False.</p></li>
 <li><p><strong>output</strong> (<em>str</em><em>, </em><em>optional</em>) – The name of the output APK file, defaults to None.</p></li>
 <li><p><strong>framework_path</strong> (<em>str</em><em>, </em><em>optional</em>) – The directory containing framework files, defaults to None.</p></li>
-<li><p><strong>use_aapt2</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to use aapt 2 or no, defaults to False.</p></li>
+<li><p><strong>use_aapt2</strong> (<em>bool</em><em>, </em><em>optional.</em>) – Whether to use aapt 2 or no, defaults to False.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -89,7 +89,7 @@
 
 <dl class="method">
 <dt id="apkinjector.apktool.Apktool.decode">
-<em class="property">static </em><code class="sig-name descname">decode</code><span class="sig-paren">(</span><em class="sig-param">file_apk</em>, <em class="sig-param">force=False</em>, <em class="sig-param">output=None</em>, <em class="sig-param">framework_path=None</em>, <em class="sig-param">no_res=False</em>, <em class="sig-param">no_src=False</em>, <em class="sig-param">tag=None</em><span class="sig-paren">)</span><a class="headerlink" href="#apkinjector.apktool.Apktool.decode" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="sig-name descname">decode</code><span class="sig-paren">(</span><em class="sig-param">file_apk</em>, <em class="sig-param">force=False</em>, <em class="sig-param">output=None</em>, <em class="sig-param">framework_path=None</em>, <em class="sig-param">no_res=False</em>, <em class="sig-param">no_src=False</em>, <em class="sig-param">tag=None</em>, <em class="sig-param">force_manifest=False</em><span class="sig-paren">)</span><a class="headerlink" href="#apkinjector.apktool.Apktool.decode" title="Permalink to this definition">¶</a></dt>
 <dd><p>Decode an APK file with provided options.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -101,6 +101,7 @@
 <li><p><strong>no_res</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to not decode resources, defaults to False.</p></li>
 <li><p><strong>no_src</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to not decode sources, defaults to False.</p></li>
 <li><p><strong>tag</strong> (<em>str</em><em>, </em><em>optional</em>) – A tag for the framework file, defaults to None.</p></li>
+<li><p><strong>force_manifest</strong> (<em>str</em><em>, </em><em>optional</em>) – Forces decode of AndroidManifest.xml regardless of decoding of resources parameter.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>

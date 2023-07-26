@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Bundle &#8212; apkinjector 2023 documentation</title>
+    <title>Manifest &#8212; apkinjector 2023 documentation</title>
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     
@@ -16,8 +16,8 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Manifest" href="manifest.html" />
-    <link rel="prev" title="UberApkSigner" href="uber_apk_signer.html" /> 
+    <link rel="next" title="Frida" href="frida.html" />
+    <link rel="prev" title="Bundle" href="bundle.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -29,10 +29,10 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="manifest.html" title="Manifest"
+          <a href="frida.html" title="Frida"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="uber_apk_signer.html" title="UberApkSigner"
+          <a href="bundle.html" title="Bundle"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">apkinjector 2023 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../api.html" accesskey="U">API Reference</a> &#187;</li> 
@@ -44,25 +44,22 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="module-apkinjector.bundle">
-<span id="bundle"></span><h1>Bundle<a class="headerlink" href="#module-apkinjector.bundle" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-apkinjector.manifest">
+<span id="manifest"></span><h1>Manifest<a class="headerlink" href="#module-apkinjector.manifest" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
-<dt id="apkinjector.bundle.Bundle">
-<em class="property">class </em><code class="sig-prename descclassname">apkinjector.bundle.</code><code class="sig-name descname">Bundle</code><a class="headerlink" href="#apkinjector.bundle.Bundle" title="Permalink to this definition">¶</a></dt>
-<dd><p>Tools to work with apk bundles (xapk and apks)</p>
+<dt id="apkinjector.manifest.Manifest">
+<em class="property">class </em><code class="sig-prename descclassname">apkinjector.manifest.</code><code class="sig-name descname">Manifest</code><a class="headerlink" href="#apkinjector.manifest.Manifest" title="Permalink to this definition">¶</a></dt>
+<dd><p>AndroidManifest.xml utils used across the project</p>
 <dl class="method">
-<dt id="apkinjector.bundle.Bundle.extract">
-<em class="property">static </em><code class="sig-name descname">extract</code><span class="sig-paren">(</span><em class="sig-param">source: str</em>, <em class="sig-param">output_path: str</em><span class="sig-paren">)</span> &#x2192; List[str]<a class="headerlink" href="#apkinjector.bundle.Bundle.extract" title="Permalink to this definition">¶</a></dt>
-<dd><p>Extract a bundle (xapk and apks) to a given path.</p>
+<dt id="apkinjector.manifest.Manifest.get_activities">
+<em class="property">static </em><code class="sig-name descname">get_activities</code><span class="sig-paren">(</span><em class="sig-param">manifest: str</em><span class="sig-paren">)</span> &#x2192; List[str]<a class="headerlink" href="#apkinjector.manifest.Manifest.get_activities" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of activities declared in the target manifest.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>source</strong> (<em>str</em>) – Path to the bundle.</p></li>
-<li><p><strong>output_path</strong> (<em>str</em>) – Destination of the bundled.</p></li>
-</ul>
+<dd class="field-odd"><p><strong>manifest</strong> (<em>str</em>) – Path to the decoded AndroidManifest.xml.</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>[bundle path, base apk]</p>
+<dd class="field-even"><p>A sorted list of activities.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>List[str]</p>
@@ -71,35 +68,52 @@
 </dd></dl>
 
 <dl class="method">
-<dt id="apkinjector.bundle.Bundle.is_bundle">
-<em class="property">static </em><code class="sig-name descname">is_bundle</code><span class="sig-paren">(</span><em class="sig-param">source: str</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#apkinjector.bundle.Bundle.is_bundle" title="Permalink to this definition">¶</a></dt>
-<dd><p>Checks if the source is a bundle or not.</p>
+<dt id="apkinjector.manifest.Manifest.get_libraries">
+<em class="property">static </em><code class="sig-name descname">get_libraries</code><span class="sig-paren">(</span><em class="sig-param">manifest: str</em><span class="sig-paren">)</span> &#x2192; List[str]<a class="headerlink" href="#apkinjector.manifest.Manifest.get_libraries" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of activities declared in the target manifest.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>source</strong> (<em>str</em>) – Source to check.</p>
+<dd class="field-odd"><p><strong>manifest</strong> (<em>str</em>) – Path to the decoded AndroidManifest.xml.</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>True if it’s a bundle, False otherwise.</p>
+<dd class="field-even"><p>A sorted list of activities.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>bool</p>
+<dd class="field-odd"><p>List[str]</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="method">
-<dt id="apkinjector.bundle.Bundle.repack">
-<em class="property">static </em><code class="sig-name descname">repack</code><span class="sig-paren">(</span><em class="sig-param">source: str</em>, <em class="sig-param">output_path: str</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#apkinjector.bundle.Bundle.repack" title="Permalink to this definition">¶</a></dt>
-<dd><p>Repacks a bundle (xapk and apks) to a given path.</p>
+<dt id="apkinjector.manifest.Manifest.get_main_activity">
+<em class="property">static </em><code class="sig-name descname">get_main_activity</code><span class="sig-paren">(</span><em class="sig-param">manifest: str</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#apkinjector.manifest.Manifest.get_main_activity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the main activity declared in the target manifest.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>source</strong> (<em>str</em>) – Path to the extracted bundle.</p></li>
-<li><p><strong>output_path</strong> (<em>str</em>) – Path to where to save the bundle file.</p></li>
-</ul>
+<dd class="field-odd"><p><strong>manifest</strong> (<em>str</em>) – Path to the decoded AndroidManifest.xml.</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Location of the repacked bundle.</p>
+<dd class="field-even"><p>The name of the main activity</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="apkinjector.manifest.Manifest.get_permissions">
+<em class="property">static </em><code class="sig-name descname">get_permissions</code><span class="sig-paren">(</span><em class="sig-param">manifest: str</em><span class="sig-paren">)</span> &#x2192; List[str]<a class="headerlink" href="#apkinjector.manifest.Manifest.get_permissions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of permissions declared in the target manifest.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>manifest</strong> (<em>str</em>) – Path to the decoded AndroidManifest.xml.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A sorted list of permissions.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>List[str]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -123,15 +137,15 @@
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
-  <p class="topless"><a href="uber_apk_signer.html"
-                        title="previous chapter">UberApkSigner</a></p>
+  <p class="topless"><a href="bundle.html"
+                        title="previous chapter">Bundle</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="manifest.html"
-                        title="next chapter">Manifest</a></p>
+  <p class="topless"><a href="frida.html"
+                        title="next chapter">Frida</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/api/bundle.rst.txt"
+      <li><a href="../_sources/api/manifest.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -159,10 +173,10 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="manifest.html" title="Manifest"
+          <a href="frida.html" title="Frida"
              >next</a> |</li>
         <li class="right" >
-          <a href="uber_apk_signer.html" title="UberApkSigner"
+          <a href="bundle.html" title="Bundle"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">apkinjector 2023 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../api.html" >API Reference</a> &#187;</li> 
