@@ -72,8 +72,8 @@ def _inject(apk, libraries, include, activity, output, override, use_aapt):
         output_bundle = f'{workdir}_bundle'
         if os.path.exists(output_bundle):
             shutil.rmtree(output_bundle)
-            bundle_path, target = Bundle.extract(apk, output_bundle)
-            LOG.info('Found base apk: {}', target)
+        bundle_path, target = Bundle.extract(apk, output_bundle)
+        LOG.info('Found base apk: {}', target)
 
     LOG.info('Extracting {}', target)
 

@@ -30,7 +30,8 @@ class Bundle:
             zip.extractall(output_path)
         sai_manifestv1 = os.path.join(output_path, 'meta.sai_v1.json')
         sai_manifestv2 = os.path.join(output_path, 'meta.sai_v2.json')
-        if os.path.isfile(sai_manifestv1) or os.path.isfile(sai_manifestv2):
+        apkm_installer_url = os.path.join(output_path, 'APKM_installer.url')
+        if os.path.isfile(sai_manifestv1) or os.path.isfile(sai_manifestv2) or os.path.isfile(apkm_installer_url):
             base_apk = os.path.join(output_path, 'base.apk')
         else:
             manifest = os.path.join(output_path, 'manifest.json')
@@ -71,4 +72,4 @@ class Bundle:
         :rtype: bool
         """
         name = os.path.basename(source)
-        return name.endswith('xapk') or name.endswith('apks')
+        return name.endswith('.xapk') or name.endswith('.apks') or name.endswith('.apkm')
