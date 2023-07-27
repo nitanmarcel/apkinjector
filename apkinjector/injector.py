@@ -11,17 +11,22 @@ from .utils import arch_to_abi
 class Injector:
     @staticmethod
     def inject_library(source: str, unpack_path: str, smali_path: str = None, extra_files: List[str] = None, skip_copy=False) -> None:
-        """Inject library into unpacked apk
+        """
+        Injects a library into an unpacked apk.
 
-        Args:
-            source (str): Path to shared library to inject.
-            unpack_path (str): Path to apktool unpacked apk.
-            smali_path (str, optional): Path to smali file to inject into. Leave empty to skip this step.
-            extra_files (List[str], optional): Extra files to copy over the the apk lib/ folder.
-            skip_copy (bool, optional): Whatever to copy the library into target, or skip and just edit the smali. Defaults to False.
+        :param source: The path to the shared library to inject.
+        :type source: str
+        :param unpack_path: The path to the apktool unpacked apk.
+        :type unpack_path: str
+        :param smali_path: The path to the smali file to inject into. Leave empty to skip this step. Defaults to None.
+        :type smali_path: str, optional
+        :param extra_files: Extra files to copy over the to the apk lib/ folder. Defaults to None.
+        :type extra_files: list of str, optional
+        :param skip_copy: Whatever to copy the library into target, or skip and just edit the smali. Defaults to False.
+        :type skip_copy: bool, optional
 
-        Returns:
-            bool: If the injection was succesful or not.
+        :return: If the injection was successful or not.
+        :rtype: bool
         """
         lib, _ = os.path.splitext(os.path.basename(source))
         lib = lib.split('lib', 1)[-1]
