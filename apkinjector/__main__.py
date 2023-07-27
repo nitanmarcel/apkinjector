@@ -80,7 +80,7 @@ def _inject(apk, libraries, include, activity, output, override, use_aapt):
     Apktool.install(progress_callback=_install_callback)
     LOG.info('Using apktool {}', Apktool.version())
 
-    Apktool.decode(target, force=True, output=workdir, framework_path=f'{workdir}_framework', no_res=True, force_manifest=True)
+    Apktool.decode(target, force=True, output=workdir, framework_path=f'{workdir}_framework')
 
     manifest_path = os.path.join(workdir, 'AndroidManifest.xml')
 
