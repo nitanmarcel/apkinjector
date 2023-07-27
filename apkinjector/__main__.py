@@ -62,6 +62,8 @@ def _inject(apk, libraries, include, activity, output, override, use_aapt):
 
     apk_name, ext =  os.path.splitext(apk)
     workdir = os.path.join(USER_DIRECTORIES.user_cache_dir, apk_name)
+
+    libraries = list(libraries)
     entry_lib = libraries[0]
 
     _, _ext = os.path.splitext(output)
