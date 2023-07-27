@@ -11,7 +11,7 @@ Usage
 Commands:
   apk      Apk utils
   frida    Inject a frida gadget in a target apk.
-  inject   Inject a shared library (*.so) in a target apk.
+  inject   Inject a shared library (.so) in a target apk.
   plugins  Manage plugins
 
 Frida

@@ -48,13 +48,14 @@ class Java:
     
     @staticmethod
     def install(path: str = None, progress_callback: Callable = None) -> None:
-        """Installs java
+        """
+        Installs java
 
-        :param path: Path to existing java if not found will use the system installed one or download it., defaults to None
+        :param path: Path to existing java if not found will use the system installed one or download it. Defaults to None.
         :type path: str, optional
-        :param progress_callback:Callback to be called when install progress changes, defaults to None.
-        :type progress_callback: Callable, optional
-        
+        :param progress_callback: Callback to be called when install progress changes. Defaults to None.
+        :type progress_callback: Callable, optional.
+
         """
         DEPENDENCIES.add_dependency(
             'java', path=path, fallback=_download_java, fallback_args=(progress_callback,))
