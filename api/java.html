@@ -56,11 +56,12 @@
 <dd><p>Installs java</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>path</strong> (<em>str</em><em>, </em><em>optional</em>) – Path to existing java if not found will use the system installed one or download it., defaults to None</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em><em>, </em><em>optional</em>) – Path to existing java if not found will use the system installed one or download it. Defaults to None.</p></li>
+<li><p><strong>progress_callback</strong> (<em>Callable</em><em>, </em><em>optional.</em>) – Callback to be called when install progress changes. Defaults to None.</p></li>
+</ul>
 </dd>
 </dl>
-<p>:param progress_callback:Callback to be called when install progress changes, defaults to None.
-:type progress_callback: Callable, optional</p>
 </dd></dl>
 
 <dl class="method">
