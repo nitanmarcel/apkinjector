@@ -10,14 +10,15 @@ from .utils import arch_to_abi
 
 class Injector:
     @staticmethod
-    def inject_library(source: str, unpack_path: str, smali_path: str = None, extra_files: List[str] = None) -> None:
+    def inject_library(source: str, unpack_path: str, smali_path: str = None, extra_files: List[str] = None, skip_copy=False) -> None:
         """Inject library into unpacked apk
 
         Args:
             source (str): Path to shared library to inject.
             unpack_path (str): Path to apktool unpacked apk.
-            smali_path (str, optional): _description_. Path to smali file to inject into. Leave empty to skip this step
-            extra_files (List[str], optional): _description_. Extra files to copy over the the apk lib/ folder
+            smali_path (str, optional): Path to smali file to inject into. Leave empty to skip this step.
+            extra_files (List[str], optional): Extra files to copy over the the apk lib/ folder.
+            skip_copy (bool, optional): Whatever to copy the library into target, or skip and just edit the smali. Defaults to False.
 
         Returns:
             bool: If the injection was succesful or not.
@@ -29,30 +30,23 @@ class Injector:
         if smali_path and not os.path.isfile(smali_path):
             return injected
 
-        abi = None
+        arch = Injector.guess_arch_from_lib(source)
+        abi = arch_to_abi(arch.lower())
 
-        with open(source, 'rb') as libfile:
-            elffile = ELFFile(libfile)
-            arch = elffile.get_machine_arch()
-            if arch.lower() in ['aarch64', 'arm64']:
-                arch = ARCH.ARM64
-            if arch.lower() in ['x64']:
-                return ARCH.X64
-            abi = arch_to_abi(arch.lower())
-
-        path = os.path.join(unpack_path, 'lib', abi)
-        if not os.path.isdir(path):
-            os.makedirs(path)
-        paths = []
-        paths.append(source)
-        if extra_files:
-            paths.extend(extra_files)
-        for file in paths:
-            name = os.path.basename(file)
-            dest = os.path.join(path, name)
-            if os.path.isfile(dest):
-                os.remove(dest)
-            shutil.copyfile(file, dest)
+        if not skip_copy:
+            path = os.path.join(unpack_path, 'lib', abi)
+            if not os.path.isdir(path):
+                os.makedirs(path)
+            paths = []
+            paths.append(source)
+            if extra_files:
+                paths.extend(extra_files)
+            for file in paths:
+                name = os.path.basename(file)
+                dest = os.path.join(path, name)
+                if os.path.isfile(dest):
+                    os.remove(dest)
+                shutil.copyfile(file, dest)
 
         injected = not bool(smali_path)
         if smali_path:
@@ -86,3 +80,15 @@ class Injector:
             with open(smali_path, 'w') as smali:
                 smali.writelines(lines)
         return injected
+    
+    @staticmethod
+    def guess_arch_from_lib(lib_path: str) -> ARCH:
+        with open(lib_path, 'rb') as libfile:
+            elffile = ELFFile(libfile)
+            arch = elffile.get_machine_arch()
+            if arch.lower() in ['aarch64', 'arm64']:
+                arch = ARCH.ARM64
+            if arch.lower() in ['x64']:
+                arch = ARCH.X64
+        return arch
+            

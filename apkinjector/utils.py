@@ -14,7 +14,7 @@ def abi_to_arch(abi: str) -> Union[ARCH, None]:
     """
     mappings = {
         'armeabi-v7a': ARCH.ARM,
-        'arm64-v8a': ARCH.ARM64,
+        'arm64_v8a': ARCH.ARM64,
         'x86': ARCH.X86,
         'x86_64': ARCH.X64
     }

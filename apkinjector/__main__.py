@@ -1,6 +1,7 @@
 import os
 import sys
 import time
+import zipfile
 
 import click
 import json
@@ -20,9 +21,17 @@ from .gadget import Gadget
 from .injector import Injector
 from .plugins import _PluginLoader, main
 from .uber_apk_signer import UberApkSigner
-from .bundle import Bundle
+from .bundle import Bundle, ConfigArch, ConfigDpi, ConfigLocale
 from .download import download_file
 from .manifest import Manifest
+
+def _clear_cache(func):
+    def inner(*args, **kwargs):
+        func(*args, **kwargs)
+        shutil.rmtree(USER_DIRECTORIES.user_cache_dir)
+        os.makedirs(USER_DIRECTORIES.user_cache_dir)
+    return inner
+
 
 def _install_callback(progress):
     if isinstance(progress, ProgressDownloading):
@@ -38,6 +47,7 @@ def _install_callback(progress):
         LOG.info('Downloading {} this might take a while...', progress.filename)
 
 
+@_clear_cache
 def _inject(apk, libraries, include, activity, output, override, use_aapt):
     if not os.path.isfile(apk):
         LOG.error('{} - not such file.', apk)
@@ -52,8 +62,7 @@ def _inject(apk, libraries, include, activity, output, override, use_aapt):
 
     apk_name, ext = os.path.basename(apk).rsplit('.', 1)
     workdir = os.path.join(USER_DIRECTORIES.user_cache_dir, apk_name)
-    target = apk
-    bundle_path = None
+    entry_lib = libraries[0]
 
     if override:
         output = apk
@@ -67,25 +76,45 @@ def _inject(apk, libraries, include, activity, output, override, use_aapt):
         output = tmp_output
     
     is_bundle = Bundle.is_bundle(apk)
+
+    output_bundle = None
+    bundle_info = None
+
     if is_bundle:
         LOG.info('Extracting split apks...')
         output_bundle = f'{workdir}_bundle'
         if os.path.exists(output_bundle):
             shutil.rmtree(output_bundle)
-        bundle_path, target = Bundle.extract(apk, output_bundle)
-        LOG.info('Found base apk: {}', target)
+        bundle_info = Bundle.extract(apk, output_bundle)
 
-    LOG.info('Extracting {}', target)
+    targets = []
+
+    if bundle_info and bundle_info.configs:
+        for config in bundle_info.configs:
+            if isinstance(config, ConfigArch):
+                for lib in libraries.copy():
+                    lib_arch = Injector.guess_arch_from_lib(lib)
+                    if lib_arch == config.arch:
+                        target_split = os.path.join(output_bundle, config.file_name)
+                        targets.append([target_split, lib])
+                        libraries.remove(lib)
+    for lib in libraries:
+        if is_bundle:
+            target_split = os.path.join(output_bundle, bundle_info.base_apk)
+            targets.append([target_split, lib])
+        else:
+            targets.append([output, lib])
 
     Apktool.install(progress_callback=_install_callback)
-    LOG.info('Using apktool {}', Apktool.version())
+    LOG.info('Using apktool: {}', Apktool.version())
 
-    Apktool.decode(target, force=True, output=workdir, framework_path=f'{workdir}_framework')
+    base = os.path.join(output_bundle, bundle_info.base_apk) if is_bundle else apk
+    # extract base
+    LOG.info('Extracting {}', base)
+    Apktool.decode(base, force=True, output=workdir, framework_path=f'{workdir}_framework')
 
     manifest_path = os.path.join(workdir, 'AndroidManifest.xml')
-
     target_activity = None
-
     if activity:
         for activities in Manifest.get_activities(manifest_path):
             for i in activities:
@@ -106,40 +135,61 @@ def _inject(apk, libraries, include, activity, output, override, use_aapt):
             workdir, file, target_activity.replace('.', '/') + '.smali')
             if os.path.isfile(entrypoint_tmp):
                 entrypoint = entrypoint_tmp
-                break           
-
+                break  
     if not entrypoint:
         LOG.error('Failed to find smali file for activity {}', target_activity)
-    LOG.info('Injecting {} into {}', libraries[0], target_activity)
-    injected = Injector.inject_library(libraries[0], workdir, entrypoint, include)
+        
+    LOG.info('Injecting smali loader into {}.', target_activity)
+    injected = Injector.inject_library(entry_lib, workdir, entrypoint, include, skip_copy=True) # Copying will be done for each target bellow
     if not injected:
-        LOG.warning('Something wen\'t wrong when injecting {}', library)
-    if len(libraries) > 0:
-        for library in libraries[1:]:
-            LOG.info('Copying {} into apk.', library)
-            injected = Injector.inject_library(library, workdir, None, include)
-            if not injected:
-                LOG.warning('Something wen\'t wrong when injecting {}', library)
-    apks = []
+        LOG.error('Something wen\'t wrong when injecting into target..')
+    LOG.info('Repacking {} -> {}', base if is_bundle else apk, base if is_bundle else output)
+    Apktool.build(workdir, output=base if is_bundle else output, framework_path=f'{workdir}_framework', use_aapt2=use_aapt)
 
+    for target in targets:
+        apk_target = target[0]
+        lib_target = target[1]
+        if os.path.exists(workdir):
+            shutil.rmtree(workdir)
+        os.makedirs(workdir)
+        LOG.info('Extracting {}', apk_target)
+        with zipfile.ZipFile(apk_target, 'r') as ref:
+            ref.extractall(workdir)
+        LOG.info('Injecting {} in {}', lib_target, apk_target)
+        injected = Injector.inject_library(lib_target, workdir, smali_path=None, extra_files=include)
+        if not injected:
+            LOG.error('Something wen\'t wrong when injecting into target..')
+        LOG.info('Repacking {} -> {}', apk_target, apk_target if is_bundle else output)
+        with zipfile.ZipFile(apk_target if is_bundle else output, 'w') as ref:
+            for root, dirs, files in os.walk(workdir):
+                for file in files:
+                    ref.write(os.path.join(root, file), 
+                        os.path.relpath(os.path.join(root, file), 
+                                        workdir))
+    
+    apks = []
     if is_bundle:
-        Apktool.build(workdir, output=os.path.join(bundle_path, target), framework_path=f'{workdir}_framework', use_aapt2=use_aapt)
-        apks = [os.path.join(bundle_path, apk) for apk in os.listdir(bundle_path) if apk.endswith('.apk')]
+        apks = [os.path.join(output_bundle, apk) for apk in os.listdir(output_bundle) if apk.endswith('.apk')]
     else:
-        Apktool.build(workdir, output=output, framework_path=f'{workdir}_framework', use_aapt2=use_aapt)
         apks = [output,]
     
     LOG.info('Signing {}', ' '.join([os.path.basename(apk) for apk in apks]))
     UberApkSigner.install(progress_callback=_install_callback)
+
     LOG.info('Using uber-apk-signer {}', UberApkSigner.version().split()[-1])
+
     UberApkSigner.sign(apks, allow_resign=True, overwrite=True)
+
     if is_bundle:
+        LOG.info('Repacking bundle')
         cache_bundle = os.path.join(USER_DIRECTORIES.user_cache_dir, f'cached.{ext}')
         Bundle.repack(f'{workdir}_bundle', cache_bundle)
         if os.path.isfile(output):
             os.remove(output)
         shutil.copyfile(cache_bundle, output)
     LOG.info('DONE! {}', output)
+
+    ### Clear cache
   
 @main.command(help='Inject a shared library (*.so) in a target apk.')
 @click.argument('apk')
