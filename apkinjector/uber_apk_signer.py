@@ -30,7 +30,7 @@ class UberApkSigner:
         return Java.run_jar(DEPENDENCIES.uber_apk_signer, '--version')
 
     @staticmethod
-    def sign(apks: str, allow_resign: Optional[bool] = False, debug: Optional[bool] = False,
+    def sign(apks: List[str], allow_resign: Optional[bool] = False, debug: Optional[bool] = False,
              dry_run: Optional[bool] = False, ks: Optional[str] = None, ks_alias: Optional[str] = None,
              ks_debug: Optional[str] = None, ks_key_pass: Optional[str] = None, ks_pass: Optional[str] = None,
              lineage: Optional[str] = None, out: Optional[str] = None, overwrite: Optional[bool] = False,
@@ -43,7 +43,7 @@ class UberApkSigner:
         :rtype: str
         """
 
-        command = f'-a {apks}'
+        command = '-a {}'.format(' '.join(apks))
 
         if allow_resign:
             command += " --allowResign"

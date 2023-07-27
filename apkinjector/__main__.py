@@ -120,21 +120,25 @@ def _inject(apk, libraries, include, activity, output, override, use_aapt):
             injected = Injector.inject_library(library, workdir, None, include)
             if not injected:
                 LOG.warning('Something wen\'t wrong when injecting {}', library)
-    
-    LOG.info('Repacking target')
+    apks = []
+
     if is_bundle:
         Apktool.build(workdir, output=os.path.join(bundle_path, target), framework_path=f'{workdir}_framework', use_aapt2=use_aapt)
+        apks = [os.path.join(bundle_path, apk) for apk in os.listdir(bundle_path) if apk.endswith('.apk')]
+    else:
+        Apktool.build(workdir, output=output, framework_path=f'{workdir}_framework', use_aapt2=use_aapt)
+        apks = [output,]
+    
+    LOG.info('Signing {}', ' '.join([os.path.basename(apk) for apk in apks]))
+    UberApkSigner.install(progress_callback=_install_callback)
+    LOG.info('Using uber-apk-signer {}', UberApkSigner.version().split()[-1])
+    UberApkSigner.sign(apks, allow_resign=True, overwrite=True)
+    if is_bundle:
         cache_bundle = os.path.join(USER_DIRECTORIES.user_cache_dir, f'cached.{ext}')
         Bundle.repack(f'{workdir}_bundle', cache_bundle)
         if os.path.isfile(output):
             os.remove(output)
         shutil.copyfile(cache_bundle, output)
-    else:
-        Apktool.build(workdir, output=output, framework_path=f'{workdir}_framework', use_aapt2=use_aapt)
-    LOG.info('Signing {}', output)
-    UberApkSigner.install(progress_callback=_install_callback)
-    LOG.info('Using uber-apk-signer {}', UberApkSigner.version().split()[-1])
-    UberApkSigner.sign(output, allow_resign=True, overwrite=True)
     LOG.info('DONE! {}', output)
   
 @main.command(help='Inject a shared library (*.so) in a target apk.')
