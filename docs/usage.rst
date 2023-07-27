@@ -7,3 +7,5 @@ Installation and Use
    usage/installation
    usage/features
    usage/usage
+   usage/as_module
+   usage/as_plugin
