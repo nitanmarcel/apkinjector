@@ -58,23 +58,29 @@ def _inject(apk, libraries, include, activity, output, override, use_aapt):
     if include:
         for i in include:
             if not os.path.isfile(i):
-                LOG.error('Include {} is not a valid file', include)
+                LOG.error('Include {} is not a valid file.', include)
 
-    apk_name, ext = os.path.basename(apk).rsplit('.', 1)
+    apk_name, ext =  os.path.splitext(apk)
     workdir = os.path.join(USER_DIRECTORIES.user_cache_dir, apk_name)
     entry_lib = libraries[0]
 
-    if override:
-        output = apk
-    else:
+    _, _ext = os.path.splitext(output)
+    if not _ext:
+        # is file
         tmp_output = output
         if os.path.isdir(output):
-            output = os.path.join(output, f'{apk_name}_patched.{ext}')
-        if os.path.exists(output):
-            timestamp = str(time.time()).split('.')[0]
-            tmp_output = os.path.join(output, f'{apk_name}_patched_{timestamp}.{ext}')
+            tmp_output = os.path.join(output, f'{apk_name}_patched{ext}' if not override else apk)
+        else:
+            if tmp_output.endswith(os.sep):
+                tmp_output = tmp_output.rsplit(os.sep, 1)[0]
+        if os.path.exists(tmp_output):
+            timestamp = int(time.time())
+            tmp_output = os.path.join(output, f'{apk_name}_patched_{timestamp}{ext}')
         output = tmp_output
-    
+    else:
+        if os.path.exists(output) and not override:
+            LOG.error('{} already exists.', output)
+
     is_bundle = Bundle.is_bundle(apk)
 
     output_bundle = None

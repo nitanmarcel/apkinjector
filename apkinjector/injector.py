@@ -23,7 +23,7 @@ class Injector:
         Returns:
             bool: If the injection was succesful or not.
         """
-        lib, ext = os.path.basename(source).rsplit('.', 1)
+        lib, _ = os.path.splitext(os.path.basename(source))
         lib = lib.split('lib', 1)[-1]
         lines = []
         injected = False
