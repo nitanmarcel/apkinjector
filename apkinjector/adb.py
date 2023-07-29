@@ -1,8 +1,39 @@
 import subprocess
-from typing import NoReturn, Union
+from typing import Callable, Union
 
-from . import DEPENDENCIES, utils
+from . import DEPENDENCIES, USER_DIRECTORIES, utils
 from .arch import ARCH
+from .download import download_file
+
+import os
+import platform
+import zipfile
+
+def _download_adb(progress_callback=None):
+    def _get_bin():
+        if plat in ['Linux', 'Darwin']:
+            exe = os.path.join(USER_DIRECTORIES.user_data_dir, 'platform-tools', 'adb')
+            os.chmod(exe, 0o755) # set executable permission
+            return exe
+        if plat == 'Windows':
+            return os.path.join(USER_DIRECTORIES.user_data_dir, 'platform-tools', 'adb')
+        return None
+    plat = platform.system()
+    uri = None
+    if plat == 'Linux':
+        uri = 'https://dl.google.com/android/repository/platform-tools_r29.0.5-linux.zip'
+    if plat == 'Windows':
+        uri = 'https://dl.google.com/android/repository/platform-tools_r29.0.5-windows.zip'
+    if plat == 'Darwin':
+        uri = 'https://dl.google.com/android/repository/platform-tools_r29.0.5-darwin.zip'
+    
+    path = os.path.join(USER_DIRECTORIES.user_data_dir, 'platform-tools')
+    if os.path.isdir(path):
+        return _get_bin()
+    downloaded = download_file(uri, f'{path}.zip', progress_callback)
+    with zipfile.ZipFile(downloaded, 'r') as ref:
+        ref.extractall(USER_DIRECTORIES.user_data_dir)
+    return _get_bin()
 
 
 class Adb:
@@ -71,10 +102,20 @@ class Adb:
             return None
         try:
             process = subprocess.run(
-                f'adb {command}', shell=True, capture_output=True, text=True, timeout=5)
+                f'{DEPENDENCIES.adb} {command}', shell=True, capture_output=True, text=True, timeout=5)
             return process.stdout.strip()
         except subprocess.TimeoutExpired:
             return None
+        
+    @staticmethod
+    def install(path: str = None, progress_callback: Callable = None) -> None:
+        """
+        Install adb tools.
 
-
-DEPENDENCIES.add_dependency('adb', required=None)
+        :param path: Path to existing adb executable. If not found, will use the system installed one or download it. Defaults to None.
+        :type path: str, optional
+        :param progress_callback: Callback to be called when install progress changes, defaults to None.
+        :type progress_callback: callable, optional
+        """
+        DEPENDENCIES.add_dependency(
+            'adb', path=path, fallback=_download_adb, fallback_args=(progress_callback,))
