@@ -1,0 +1,145 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Usage as a module &#8212; apkinjector 2023 documentation</title>
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Usage as a plugin" href="as_plugin.html" />
+    <link rel="prev" title="Usage" href="usage.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="as_plugin.html" title="Usage as a plugin"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="usage.html" title="Usage"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">apkinjector 2023 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../usage.html" accesskey="U">Installation and Use</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="usage-as-a-module">
+<h1>Usage as a module<a class="headerlink" href="#usage-as-a-module" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">apkinjector</span> <span class="kn">import</span> <span class="n">LOG</span>
+
+<span class="n">LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;This has been printed using apkinjector logging&quot;</span><span class="p">)</span>
+
+
+<span class="c1"># Also comes with runners for apktool, uber-apk-signer, etc/</span>
+
+<span class="kn">from</span> <span class="nn">apkinjector.apktool</span> <span class="kn">import</span> <span class="n">ApkTool</span>
+
+<span class="kn">from</span> <span class="nn">apkinjector.uber_apk_signer</span> <span class="kn">import</span> <span class="n">UberApkSigner</span>
+
+<span class="c1"># Automatically download and setup apktool.</span>
+<span class="n">ApkTool</span><span class="o">.</span><span class="n">install</span><span class="p">()</span>
+
+<span class="c1"># Decompile apk</span>
+<span class="n">ApkTool</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+
+<span class="c1"># Automatically download and setup uber-apk-signer</span>
+<span class="n">UberApkSigner</span><span class="o">.</span><span class="n">install</span><span class="p">()</span>
+
+<span class="c1"># Sign apk</span>
+<span class="n">UberApkSigner</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+
+
+<span class="c1"># Check if a dependency is in path</span>
+
+<span class="kn">from</span> <span class="nn">apkinjector</span> <span class="kn">import</span> <span class="n">DEPENDENCIES_MANAGER</span>
+
+<span class="c1"># Add a new dependency</span>
+<span class="n">java</span> <span class="o">=</span> <span class="n">DEPENDENCIES_MANAGER</span><span class="o">.</span><span class="n">add_dependency</span><span class="p">(</span><span class="s1">&#39;java&#39;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># Return Depedency(name, path, required)</span>
+
+<span class="c1"># Check if a dependency is path</span>
+<span class="c1"># Returns the path to the binary if found, if not returns None</span>
+<span class="c1"># See apkpatcher/apkpatcher to see how dependencies are automatically handled</span>
+<span class="n">in_path</span> <span class="o">=</span> <span class="n">DEPENDENCIES_MANAGER</span><span class="o">.</span><span class="n">java</span>
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="usage.html"
+                        title="previous chapter">Usage</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="as_plugin.html"
+                        title="next chapter">Usage as a plugin</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/usage/as_module.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="as_plugin.html" title="Usage as a plugin"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="usage.html" title="Usage"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">apkinjector 2023 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../usage.html" >Installation and Use</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2023, Marcel Alexandru Nitan.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.4.
+    </div>
+  </body>
+</html>

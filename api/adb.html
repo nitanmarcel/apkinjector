@@ -83,6 +83,20 @@
 </dd></dl>
 
 <dl class="method">
+<dt id="apkinjector.adb.Adb.install">
+<em class="property">static </em><code class="sig-name descname">install</code><span class="sig-paren">(</span><em class="sig-param">path: str = None</em>, <em class="sig-param">progress_callback: Callable = None</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#apkinjector.adb.Adb.install" title="Permalink to this definition">¶</a></dt>
+<dd><p>Install adb tools.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em><em>, </em><em>optional</em>) – Path to existing adb executable. If not found, will use the system installed one or download it. Defaults to None.</p></li>
+<li><p><strong>progress_callback</strong> (<em>callable</em><em>, </em><em>optional</em>) – Callback to be called when install progress changes, defaults to None.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
 <dt id="apkinjector.adb.Adb.run">
 <em class="property">static </em><code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">command: str</em><span class="sig-paren">)</span> &#x2192; Optional[str]<a class="headerlink" href="#apkinjector.adb.Adb.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bare method to run adb commands.</p>
