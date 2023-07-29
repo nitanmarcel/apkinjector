@@ -239,7 +239,6 @@ def frida(apk, script, codeshare, arch, adb, activity, output, override, aapt2):
             LOG.info('Waiting for adb device...')
             Adb.wait_for_device()
             arch = Adb.get_architecture()
-            print('yoo',arch)
         if not arch:
             LOG.error(
                 'Failed to connect to any device. Make sure you have adb installed, and the device is properly connected.')

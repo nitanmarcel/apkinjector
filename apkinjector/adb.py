@@ -19,6 +19,8 @@ def _download_adb(progress_callback=None):
             return os.path.join(USER_DIRECTORIES.user_data_dir, 'platform-tools', 'adb')
         return None
     plat = platform.system()
+    if platform.machine() not in ['x86_64', 'amd64']:
+        return None
     uri = None
     if plat == 'Linux':
         uri = 'https://dl.google.com/android/repository/platform-tools_r29.0.5-linux.zip'
