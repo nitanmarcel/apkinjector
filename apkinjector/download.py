@@ -1,9 +1,11 @@
 from dataclasses import dataclass
 from typing import Callable, Optional
 
+import os
+import shutil
 import requests
 
-from . import LOG
+from . import LOG, USER_DIRECTORIES
 
 
 @dataclass
@@ -46,7 +48,14 @@ def download_file(url: str, target_path: str, progress_callback: Optional[Callab
         if progress_callback is not None:
             progress_callback(args)
     file_name = target_path.split('/')[-1]
+    tmp_path = os.path.join(USER_DIRECTORIES.user_cache_dir, "downloads")
+    if not os.path.exists(tmp_path):
+        os.mkdir(tmp_path)
 
+    tmp_path = os.path.join(tmp_path, file_name)
+
+    if os.path.isfile(tmp_path):
+        os.remove(tmp_path)
     response = requests.get(url, stream=bool(progress_callback))
     total_length = response.headers.get('content-length')
     total_length = int(total_length)
@@ -56,7 +65,7 @@ def download_file(url: str, target_path: str, progress_callback: Optional[Callab
                   status_code=response.status_code))
         return
     _callable(ProgressDownloading(filename=file_name, progress=0))
-    with open(target_path, 'wb') as f:
+    with open(tmp_path, 'wb') as f:
         if not bool(progress_callback):
             f.write(response.content)
         else:
@@ -67,6 +76,8 @@ def download_file(url: str, target_path: str, progress_callback: Optional[Callab
                     percentage = int(downloaded * 100 / total_length)
                     _callable(ProgressDownloading(file_name, percentage))
                     f.write(chunk)
+    if os.path.isfile(tmp_path):
+        shutil.move(tmp_path, target_path)
     _callable(ProgressCompleted(file_name, target_path))
 
     return target_path

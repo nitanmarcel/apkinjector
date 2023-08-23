@@ -1,5 +1,6 @@
 import glob
 import os
+import shutil
 import subprocess
 
 import jdk
@@ -20,10 +21,14 @@ def _download_java(progress_callback):
     if progress_callback:
         pregress = ProgressUnknown('java', None)
         progress_callback(pregress)
+    tmp_directory = os.path.join(USER_DIRECTORIES.user_cache_dir)
+    if os.path.isdir(tmp_directory):
+        shutil.rmdir(tmp_directory)
     path = jdk.install(str(__JAVA_VERSION__), jre=True,
-                       path=USER_DIRECTORIES.user_data_dir)
+                       path=tmp_directory)
     if path:
-        return os.path.join(path, 'bin', 'java')
+        shutil.move(path, USER_DIRECTORIES.user_data_dir)
+        return os.path.join(USER_DIRECTORIES.user_data_dir, 'bin', 'java')
     return None
 
 class Java:
