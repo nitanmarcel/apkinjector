@@ -23,7 +23,7 @@ def _download_java(progress_callback):
         progress_callback(pregress)
     tmp_directory = os.path.join(USER_DIRECTORIES.user_cache_dir)
     if os.path.isdir(tmp_directory):
-        shutil.rmdir(tmp_directory)
+        shutil.rmtree(tmp_directory)
     path = jdk.install(str(__JAVA_VERSION__), jre=True,
                        path=tmp_directory)
     if path:
