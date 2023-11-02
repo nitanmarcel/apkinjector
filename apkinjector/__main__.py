@@ -184,7 +184,7 @@ def _inject(apk, libraries, include, activity, output, override, use_aapt):
     LOG.info('Signing {}', ' '.join([os.path.basename(apk) for apk in apks]))
     UberApkSigner.install(progress_callback=_install_callback)
 
-    LOG.info('Using uber-apk-signer {}', UberApkSigner.version().split()[-1])
+    LOG.info('Using uber-apk-signer {}', UberApkSigner.version())
 
     UberApkSigner.sign(apks, allow_resign=True, overwrite=True)
 

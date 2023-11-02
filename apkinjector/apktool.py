@@ -29,7 +29,7 @@ class Apktool:
         :return: The stdout from the command execution.
         :rtype: str
         """
-        return Java.run_jar(DEPENDENCIES.apktool, '--advanced')
+        return Apktool._run('--advanced')
 
     @staticmethod
     def version():
@@ -39,7 +39,7 @@ class Apktool:
         :return: The stdout from the command execution.
         :rtype: str
         """
-        return Java.run_jar(DEPENDENCIES.apktool, '--version')
+        return Apktool._run('--version')
 
     @staticmethod
     def install_framework(framework_apk, framework_path=None, tag=None):
@@ -60,7 +60,7 @@ class Apktool:
             command += f' --frame-path {framework_path}'
         if tag:
             command += f' --tag {tag}'
-        return Java.run_jar(DEPENDENCIES.apktool, command)
+        return Apktool._run(command)
 
     @staticmethod
     def decode(file_apk, force=False, output=None, framework_path=None, no_res=False, no_src=False, tag=None, force_manifest=False):
@@ -101,7 +101,7 @@ class Apktool:
             command += f' --frame-tag {tag}'
         if force_manifest:
             command += f' --force-manifest'
-        return Java.run_jar(DEPENDENCIES.apktool, command)
+        return Apktool._run(command)
 
     @staticmethod
     def build(app_path, force_all=False, output=None, framework_path=None, use_aapt2=False):
@@ -130,7 +130,7 @@ class Apktool:
             command += f' --frame-path {framework_path}'
         if use_aapt2:
             command += ' --use-aapt2'
-        return Java.run_jar(DEPENDENCIES.apktool, command)
+        return Apktool._run(command)
 
     @staticmethod
     def _run(command):

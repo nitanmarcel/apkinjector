@@ -103,4 +103,4 @@ class UberApkSigner:
         :type progress_callback: callable, optional
         """
         DEPENDENCIES.add_dependency(
-            'uber-apk-signer', path=path, fallback=_download_uberapksigner, fallback_args=(progress_callback,))
+            'uber-apk-signer', path=path, fallback=_download_uberapksigner, fallback_args=(progress_callback,), use_path=False)

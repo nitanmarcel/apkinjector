@@ -27,7 +27,7 @@ class DependenciesManager:
         self.dependencies_directory = dependencies_directory
         self.dependencies = []  # List to store the tracked dependencies.
 
-    def add_dependency(self, name: str, path: str = None, required: bool = False, fallback: Optional[Callable] = None, fallback_args: tuple = None) -> Dependency:
+    def add_dependency(self, name: str, path: str = None, required: bool = False, fallback: Optional[Callable] = None, fallback_args: tuple = None, use_path: bool = True) -> Dependency:
         """
         Adds a new dependency to the tracked list.
 
@@ -41,10 +41,12 @@ class DependenciesManager:
         :type fallback: Callable, optional
         :param fallback_args: Arguments to be passed to the fallback function, defaults to ().
         :type fallback_args: tuple, optional
+        :param use_path: Use binary from path if exists. defaults to True
+        :type use_path: bool, optional
         :return: The newly added dependency.
         :rtype: Dependency
         """
-        path = path or shutil.which(name)
+        path = path or (shutil.which(name) if use_path else None)
         if not path or not os.path.isfile(path):
             if callable(fallback):
                 if fallback_args and isinstance(fallback_args, (tuple, list)):
