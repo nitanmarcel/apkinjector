@@ -18,7 +18,7 @@ if not os.path.isdir(USER_DIRECTORIES.user_cache_dir):
 
 DEPENDENCIES = DependenciesManager(USER_DIRECTORIES.user_data_dir)
 
-__APKTOOL_VERSION__ = '2.8.0'
+__APKTOOL_VERSION__ = '2.9.0'
 __UBER_SIGNER_VERSION__ = '1.3.0'
 __JAVA_VERSION__ = '17'
 

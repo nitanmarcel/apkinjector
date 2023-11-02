@@ -137,7 +137,7 @@ class Apktool:
         if not DEPENDENCIES.apktool:
             return
         if DEPENDENCIES.apktool.endswith('.jar'):
-            return Java.run_jar(DEPENDENCIES.apktool)
+            return Java.run_jar(DEPENDENCIES.apktool, command)
         process = subprocess.run(
             f'{DEPENDENCIES.apktool} {command}', shell=True, capture_output=True, text=True)
         return process.stdout
