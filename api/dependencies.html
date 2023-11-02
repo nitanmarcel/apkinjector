@@ -53,7 +53,7 @@
 and their status within a provided directory.</p>
 <dl class="method">
 <dt id="apkinjector.dependencies.DependenciesManager.add_dependency">
-<code class="sig-name descname">add_dependency</code><span class="sig-paren">(</span><em class="sig-param">name: str</em>, <em class="sig-param">path: str = None</em>, <em class="sig-param">required: bool = False</em>, <em class="sig-param">fallback: Optional[Callable] = None</em>, <em class="sig-param">fallback_args: tuple = None</em><span class="sig-paren">)</span> &#x2192; apkinjector.dependencies.Dependency<a class="headerlink" href="#apkinjector.dependencies.DependenciesManager.add_dependency" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">add_dependency</code><span class="sig-paren">(</span><em class="sig-param">name: str</em>, <em class="sig-param">path: str = None</em>, <em class="sig-param">required: bool = False</em>, <em class="sig-param">fallback: Optional[Callable] = None</em>, <em class="sig-param">fallback_args: tuple = None</em>, <em class="sig-param">use_path: bool = True</em><span class="sig-paren">)</span> &#x2192; apkinjector.dependencies.Dependency<a class="headerlink" href="#apkinjector.dependencies.DependenciesManager.add_dependency" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a new dependency to the tracked list.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -63,6 +63,7 @@ and their status within a provided directory.</p>
 <li><p><strong>required</strong> (<em>bool</em>) – Indicates if the dependency is required, defaults to False.</p></li>
 <li><p><strong>fallback</strong> (<em>Callable</em><em>, </em><em>optional</em>) – The fallback function if the dependency is not found, defaults to None.</p></li>
 <li><p><strong>fallback_args</strong> (<em>tuple</em><em>, </em><em>optional</em>) – Arguments to be passed to the fallback function, defaults to ().</p></li>
+<li><p><strong>use_path</strong> (<em>bool</em><em>, </em><em>optional</em>) – Use binary from path if exists. defaults to True</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
