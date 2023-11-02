@@ -261,11 +261,11 @@ def frida(apk, script, codeshare, arch, adb, activity, output, override, aapt2):
         script = [script_tmp,]
     if codeshare:
         if codeshare.endswith('/'):
-            codeshare = uri = uri[:-1]
+            uri = codeshare[:-1]
             project_url = f"https://codeshare.frida.re/api/project/{uri}/"
-            script = os.path.join(
-                USER_DIRECTORIES.user_cache_dir, 'libhook.js.so')
-            download_file(project_url, script, _install_callback)
+            script = [ os.path.join(
+                USER_DIRECTORIES.user_cache_dir, 'libhook.js.so') ]
+            download_file(project_url, script[-1], _install_callback)
     if script or codeshare:
         config = {
             "interaction":
